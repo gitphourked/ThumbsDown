@@ -1,0 +1,216 @@
+# i3 config file (v4)
+#
+# Please see https://i3wm.org/docs/userguide.html for a complete reference!
+
+set $mod Mod4
+set $coloract "#FFFFFF"
+set $colorin "#000000"
+set $terminal urxvt
+set_from_resource $color15 i3wm.color15 "#FFFFFF"
+set_from_resource $split i3wm.color1 "#a35e64"
+set_from_resource $coloru i3wm.color2 "#000000"
+set_from_resource $color0 i3wm.color0 "#000000"
+set_from_resource $color8 i3wm.color8 "#000000"
+
+# Font for window titles. Will also be used by the bar unless a different font
+# is used in the bar {} block below.
+font pango:iosevka 8 
+gaps outer 20
+gaps inner 20
+new_window pixel 3
+
+######### COLORS ##########
+
+#class                 border    backgr    text    indicator child_border
+client.focused          $split $color10 $color15 $split  $split
+client.focused_inactive $split $color10 $color15 $split  $split
+client.unfocused        $split  $split  $split $split
+client.urgent           $color10   $coloru   $split $split
+client.placeholder      $color10   $color8   $split $split
+client.background       $color10
+
+
+###### KEYBINDINGS #######
+
+bindsym $mod+u exec cd ~/.i3scripts && ./SecondMonitor.sh
+
+floating_modifier $mod
+
+floating_minimum_size 75 x 50
+floating_maximum_size 640 x 480
+
+# change focus
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+
+# alternatively, you can use the cursor keys:
+bindsym $mod+Left  focus left
+bindsym $mod+Down  focus down
+bindsym $mod+Up    focus up
+bindsym $mod+Right focus right
+
+# move focused window
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
+
+# alternatively, you can use the cursor keys:
+bindsym $mod+Shift+Left  move left
+bindsym $mod+Shift+Down  move down
+bindsym $mod+Shift+Up    move up
+bindsym $mod+Shift+Right move right
+
+# split in horizontal and vertical orientation
+bindsym $mod+s split v
+bindsym $mod+v split h
+
+# enter fullscreen mode for the focused container
+bindsym $mod+f fullscreen toggle
+
+# change container layout (stacked, tabbed, toggle split)
+bindsym $mod+Shift+t layout tabbed
+bindsym $mod+Shift+s layout stacked
+#bindsym $mod+Shift+e layout toggle split
+
+# toggle tiling / floating
+bindsym $mod+Shift+space floating toggle
+bindsym $mod+o sticky toggle
+
+# change focus between tiling / floating windows
+bindsym $mod+space focus mode_toggle
+
+# focus the parent container
+bindsym $mod+p focus parent
+
+###### EXECUTE PROGRAMS ######
+
+bindsym $mod+g       exec firefox
+bindsym $mod+Return  exec urxvt
+bindsym $mod+shift+q       kill
+bindsym $mod+q exec pcmanfm
+bindsym $mod+d       exec dmenu_run -nb '#0A0C0E' -sf '#0A0C0E' -nf '#BFBEBC' -sb '#BFBEBC'
+
+exec --no-startup-id ~/.config/wpg/wp_init.sh
+exec --no-startup-id nm-applet
+exec --no-startup-id wal -R
+# compton -b --paint-on-overlay --unredir-if-possible --backend glx --vsync drm --glx-swap-method -1 --glx-no-stencil --blur-method kawase --blur-strength 10
+exec --no-startup-id picom --config ~/.config/picom.conf
+# exec --no-startup-id picom --config ~/.config/compton.conf &
+# exec --no-startup-id feh --bg-fill ~/Pictures/Wallpapers/MurderHornetsWP.png
+# exec --no-startup-id urxvt
+exec --no-startup-id xinput set-prop 15 303 1
+
+bindsym --release Print exec scrot -m -q 100
+
+# scratchpad terminal
+#bindsym $mod+u [instance = "dropdown"] scratchpad show
+
+# switch to workspace
+bindsym $mod+1 workspace 1
+bindsym $mod+2 workspace 2
+bindsym $mod+3 workspace 3
+bindsym $mod+4 workspace 4
+bindsym $mod+5 workspace 5
+bindsym $mod+6 workspace 6
+bindsym $mod+7 workspace 7
+bindsym $mod+8 workspace 8
+bindsym $mod+9 workspace 9
+bindsym $mod+0 workspace 10
+
+# move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace 1
+bindsym $mod+Shift+2 move container to workspace 2
+bindsym $mod+Shift+3 move container to workspace 3
+bindsym $mod+Shift+4 move container to workspace 4
+bindsym $mod+Shift+5 move container to workspace 5
+bindsym $mod+Shift+6 move container to workspace 6
+bindsym $mod+Shift+7 move container to workspace 7
+bindsym $mod+Shift+8 move container to workspace 8
+bindsym $mod+Shift+9 move container to workspace 9
+bindsym $mod+Shift+0 move container to workspace 10
+
+# reload the configuration file
+bindsym $mod+Shift+c reload
+# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+bindsym $mod+Shift+r restart
+# exit i3 (logs you out of your X session)
+bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+
+mode "resize" {
+        # resize windows
+        bindsym l resize shrink width 1 px or 1 ppt
+        bindsym j resize grow height 1 px or 1 ppt
+        bindsym k resize shrink height 1 px or 1 ppt
+        bindsym h resize grow width 1 px or 1 ppt
+
+        # resize gaps
+        bindsym minus       gaps outer current plus 1
+        bindsym plus        gaps outer current minus 1
+        bindsym Shift+minus gaps inner current plus 1
+        bindsym Shift+plus  gaps inner current minus 1
+
+        # move windows
+        bindsym Shift+l move right 1
+        bindsym Shift+j move down 1
+        bindsym Shift+k move up 1
+        bindsym Shift+h move left 1
+
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+
+mode "display" {
+
+        # toggle thinkpad modes
+        #bindsym s exec dock-single
+        #bindsym d exec dock-dual
+        #bindsym t exec thinkpad
+
+        # toggle compton modes
+        #bindsym f exec "killall compton; compton -b --inactive-dim 0.2"
+        #bindsym n exec "killall compton; compton -b"
+
+        bindsym h move workspace to output left
+        bindsym l move workspace to output right
+
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+
+bindsym $mod+r mode "resize"
+#bindsym $mod+d mode "display"
+
+# i3 bar not present use polybar
+# bar {
+#         status_command i3status
+# }
+
+
+##### WINDOWS ######
+
+# assign [class = "Firefox"] 1
+# assign [class = "qutebrowser"] 1
+# assign [class = "Google-chrome"] 1
+# assign [class = "DBeaver"] 3
+# assign [class = "zoom"] 9
+# assign [instance = "music"] 10
+
+for_window [class="URxvt"] floating enable
+
+###### STARTUP ######
+
+exec --no-startup-id ~/.config/wpg/wp_init.sh
+#exec --no-startup-id feh --bg-fill ~/Pictures/Wallpapers/WinterSunset4.jpg ~/Pictures/Wallpapers/VerticalWallpapers/VerticalSnowflake.jpg 
+exec --no-startup-id urxvt
+# exec --no-startup-id "setxkbmap -option caps:escape"
+# exec --no-startup-id volumeicon
+# exec --no-startup-id compton
+# exec --no-startup-id urxvtd
+# exec --no-startup-id dockd --daemon
+# exec --no-startup-id urxvt -name dropdown
+exec_always --no-startup-id cd ~/.config/polybar && ./launchbarright.sh
+exec_always --no-startup-id cd ~/.config/polybar && ./launchbarmiddle.sh
+exec_always --no-startup-id cd ~/.config/polybar && ./launchbarleft.sh
