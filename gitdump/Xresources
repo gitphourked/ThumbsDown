@@ -1,0 +1,8 @@
+URxvt.font: xft:CozetteVector:size=10
+!:pixelsize=12:antialias=false:hinting=false
+URxvt.boldFont: xft:CozetteVector:size=10:bold
+!:pixelsizze=12:antialias=false:hinting=false
+URxvt*font: ttf:Font Awesome 5 Free:size=10
+URxvt.letterSpace: 1
+URxvt.scrollBar: false
+URxvt.internalBorder:  8

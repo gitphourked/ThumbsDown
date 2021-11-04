@@ -1,0 +1,23 @@
+# Lines configured by zsh-newuser-install
+HISTFILE=~/.histfile
+HISTSIZE=1000
+SAVEHIST=1000
+unsetopt beep
+bindkey -e
+# End of lines configured by zsh-newuser-install
+# The following lines were added by compinstall
+zstyle :compinstall filename '/home/ej/.zshrc'
+
+autoload -Uz compinit
+compinit
+# End of lines added by compinstall
+
+# Color Variables
+Green='#add7ad'
+Blue='#b1add7'
+Pink='#d7adcc'
+
+# Aliases
+alias ls='ls --color'
+
+PS1='%B%F{green}%n%f%F{blue}@arch%f %F{green}%~%f %F{red}->%f %b'
